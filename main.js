@@ -74,6 +74,7 @@ var awayScore = 0;
 var homeScore = 0;
 var timeValue = 600; //sec
 var timerOn = false;
+var latestSerial = '';
 function onload(){
   let testers = document.getElementsByClassName('testButton');
   let pairs = document.getElementsByClassName('pairButton');
@@ -202,6 +203,7 @@ function clickPortCon(){
   openPort();
 }
 async function openPort(){
+  var que = [];
   var port = await navigator.serial.requestPort();
   await port.open({ baudRate: 9600 });
   const reader = port.readable.getReader();
@@ -212,6 +214,15 @@ async function openPort(){
       reader.releaseLock();
       break;
     }
-    console.log(value);
+    for(let i = 0; i < value.length; i++){
+      if(value[i] == 10){
+        let ascii = new Uint8Array(que);
+        latestSerial = btoa(String.fromCharCode.apply(null, ascii));
+        console.log(latestSerial);
+        que=[];
+      }else{
+        que.push(value[i]);
+      }
+    }
   }
 }
