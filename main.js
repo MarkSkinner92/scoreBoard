@@ -5,7 +5,7 @@ var settingsOpen = false;
 var timeDisplay = new SegmentDisplay("timeDisplay");
 var homeDisplay = new SegmentDisplay("homeDisplay");
 var awayDisplay = new SegmentDisplay("awayDisplay");
-
+let nrs = 2; //next random sound
 function resize(){
   let timeEl = document.getElementById('timeDisplay');
   timeEl.width = window.innerWidth * 0.432;
@@ -145,7 +145,9 @@ function handleOpperation(i){
       break;
     case 13:
     console.log('working');
-      sound(parseInt(Math.random()*8+1));
+      sound(nrs);
+      nrs++;
+      if(nrs == 9) nrs = 1;
       break;
   }
 }
