@@ -202,7 +202,7 @@ function clickPortCon(){
   openPort();
 }
 async function openPort(){
-  var port = navigator.serial.requestPort();
+  var port = await navigator.serial.requestPort();
   await port.open({ baudRate: 9600 });
   const reader = port.readable.getReader();
   // Listen to data coming from the serial device.
