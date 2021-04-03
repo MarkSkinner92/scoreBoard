@@ -95,10 +95,10 @@ body{
 }
 .settingsDiv{
   position: fixed;
-  width:90%;
+  width:600px;
   height:85%;
-  background: #fff;
-  left: 5%;
+  background: rgba(255,255,255,0.8);
+  left: calc(50% - 300px);
   top: 5%;
   overflow-y: auto;
   overflow-x:hidden;
@@ -133,8 +133,8 @@ body{
 .okButton{
   position: fixed;
   right:10%;
-  width:90%;
-  left:5%;
+  width:600px;
+  left: calc(50% - 300px);
   bottom:5%;
   height:4%;
   font-size:20px;

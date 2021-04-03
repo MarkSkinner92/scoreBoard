@@ -79,6 +79,7 @@ var homeScore = 0;
 var timeValue = 600; //sec
 var timerOn = false;
 var latestSerial = '';
+
 function onload(){
   resize();
   redrawTime();
@@ -88,9 +89,11 @@ function onload(){
   for(let i = 0; i < testers.length; i++){
     let button = testers[i], pair = pairs[i];
     button.addEventListener('click',e => {
+      e.preventDefault();
       handleOpperation(i);
     });
     pair.addEventListener('click',e => {
+      e.preventDefault();
       pairButton(pair);
     });
   }
@@ -116,6 +119,7 @@ function handleOpperation(i){
     case 1:
     case 2:
       incrament(1,i+1);
+      score();
       break;
     case 3:
       set0(1);
@@ -124,6 +128,7 @@ function handleOpperation(i){
     case 5:
     case 6:
       incrament(0,i-3);
+      score();
       break;
     case 7:
       set0(0);
@@ -144,16 +149,25 @@ function handleOpperation(i){
       sound(1);
       break;
     case 13:
-    console.log('working');
-      sound(nrs);
-      nrs++;
-      if(nrs == 9) nrs = 1;
+      playRandomSound();
+      break;
+    case 14:
+      stopAllSounds();
       break;
   }
 }
+function score(){
+  if(Math.random()*100 > 100-parseInt(document.getElementById('soundProb').value)){
+    playRandomSound();
+  }
+}
+function playRandomSound(){
+  sound(nrs);
+  nrs++;
+  if(nrs == 9) nrs = 1;
+}
 //team 1 = away, team 0 = home
 function incrament(team,value){
-  console.log(team,value);
   if(team == 1){
     awayScore+=value;
   }
@@ -203,6 +217,7 @@ function redrawTime(){
   timeDisplay.setValue(min+':'+sec);
 }
 function sound(i){
+  stopAllSounds();
   console.log('playing sound',i);
   switch(i){
     case 0:
@@ -215,7 +230,7 @@ function sound(i){
       document.getElementById('yeet').play();
       break;
     case 3:
-      document.getElementById('run').play();
+      document.getElementById('gotem').play();
       break;
     case 4:
       document.getElementById('wide').play();
@@ -230,11 +245,18 @@ function sound(i){
       document.getElementById('airhorn').play();
       break;
     case 8:
-      document.getElementById('gotem').play();
+      document.getElementById('run').play();
       break;
   }
 }
 
+function stopAllSounds(){
+  var sounds = document.getElementsByTagName('audio');
+  for(i=0; i<sounds.length; i++){
+    sounds[i].currentTime=0;
+    sounds[i].pause();
+  }
+}
 function clickPortCon(){
   openPort();
 }
@@ -242,7 +264,7 @@ function clickPortCon(){
 function pairButton(button){
   console.log(button,button.key);
   if(button.getAttribute('data-state') == 1 || button.getAttribute('data-state') == 3){
-    button.innerText = 'Pair';
+    button.innerText = 'Link';
     button.setAttribute('data-key',undefined);
     button.setAttribute('data-state',0);
   }
@@ -279,13 +301,18 @@ async function openPort(){
 }
 function gotSerial(key){
   let pairs = document.getElementsByClassName('pairButton');
-
   for(let i = 0; i < pairs.length; i++){
     pair = pairs[i];
-
+    let useToggle = pairs[9].getAttribute('data-key') == pairs[8].getAttribute('data-key') && pairs[8].getAttribute('data-state') == 3;
     if(!settingsOpen && pair.getAttribute('data-state') == 3){
       if(pair.getAttribute('data-key') == key){
-        handleOpperation(i);
+        if(i == 8 && useToggle){ //if both start and stop are paired to the same key, toggle
+          toggleClock();
+        }else{
+          if(!(i == 9 && useToggle)){
+            handleOpperation(i);
+          }
+        }
       }
     }
 
@@ -296,3 +323,24 @@ function gotSerial(key){
     }
   }
 }
+function toggleClock(){
+  if(timerOn){
+    pauseClock();
+  }else{
+    startClock();
+  }
+}
+document.addEventListener('keypress',e=>{
+  console.log(e.key);
+  switch(e.key){
+    case 'Enter':
+      hideSettings();
+    break;
+    case ' ':
+      gotSerial('space');
+    break;
+    default:
+      gotSerial(e.key);
+    break;
+  }
+});
