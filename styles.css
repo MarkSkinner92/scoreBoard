@@ -82,6 +82,7 @@ body{
   left:5px;
   margin:0px;
   font-size:15px;
+  color:silver;
 }
 .overlay{
   display: none;
@@ -126,7 +127,7 @@ body{
   margin-left: 10%;
   margin-top: 10px;
   top:10px;
-  margin-bottom:30px;
+  margin-bottom:5px;
   cursor:pointer;
   background-color:orange;
 }

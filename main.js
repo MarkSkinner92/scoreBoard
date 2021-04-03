@@ -67,6 +67,7 @@ homeDisplay.setValue('00');
 
 function hideSettings(){
   document.getElementById('settings').style.display = 'none';
+  writeCookies();
   settingsOpen=false;
 }
 function showSettings(){
@@ -99,6 +100,7 @@ function onload(){
   }
   resetClock();
   redrawTime();
+  getCookies();
   setInterval(()=>{
     if(timerOn){
       if(timeValue == 1){
@@ -262,7 +264,6 @@ function clickPortCon(){
 }
 
 function pairButton(button){
-  console.log(button,button.key);
   if(button.getAttribute('data-state') == 1 || button.getAttribute('data-state') == 3){
     button.innerText = 'Link';
     button.setAttribute('data-key',undefined);
@@ -331,7 +332,6 @@ function toggleClock(){
   }
 }
 document.addEventListener('keypress',e=>{
-  console.log(e.key);
   switch(e.key){
     case 'Enter':
       hideSettings();
@@ -344,3 +344,55 @@ document.addEventListener('keypress',e=>{
     break;
   }
 });
+function clearAllLinks(){
+  let pairs = document.getElementsByClassName('pairButton');
+  for(let i = 0; i < pairs.length; i++){
+    pairs[i].innerText = 'Link';
+    pairs[i].setAttribute('data-key',undefined);
+    pairs[i].setAttribute('data-state',0);
+  }
+}
+function writeCookies(){
+  let cookies = [];
+  let pairs = document.getElementsByClassName('pairButton');
+  for(let i = 0; i < pairs.length; i++){
+    let v = pairs[i].getAttribute('data-key');
+    if(pairs[i].getAttribute('data-state') == 3){
+      setCookie('button'+i,v+'');
+    }else{
+      setCookie('button'+i,'');
+    }
+  }
+}
+function setCookie(cname, cvalue) {
+  var d = new Date();
+  d.setTime(d.getTime() + (265 * 24 * 60 * 60 * 1000));
+  var expires = "expires="+d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+function getCookies(){
+  let pairs = document.getElementsByClassName('pairButton');
+  for(let i = 0; i < pairs.length; i++){
+    let v = getCookie('button'+i);
+    if(v){
+      pairs[i].setAttribute('data-state',3);
+      pairs[i].setAttribute('data-key',v);
+      pairs[i].innerText = `Paired to ${v}`;
+    }
+  }
+}
