@@ -1,3 +1,6 @@
+canvas,.scorebkCanvas,.scorebk,.timebk,.timebkCanvas,img{
+  user-select: none;
+}
 @font-face {
   font-family: '7seg';
   src: url('7seg.ttf'); /* IE9 Compat Modes */
@@ -136,8 +139,8 @@ body{
   right:10%;
   width:600px;
   left: calc(50% - 300px);
-  bottom:5%;
-  height:4%;
+  bottom:4%;
+  height:5%;
   font-size:20px;
   font-weight: bold;
   cursor:pointer;

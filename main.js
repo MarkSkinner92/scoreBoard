@@ -61,9 +61,6 @@ function resize(){
   homeDisplay.colorOff        = "#202020";
   homeDisplay.draw();
 }
-timeDisplay.setValue('10:00');
-awayDisplay.setValue('00');
-homeDisplay.setValue('00');
 
 function hideSettings(){
   document.getElementById('settings').style.display = 'none';
@@ -98,9 +95,9 @@ function onload(){
       pairButton(pair);
     });
   }
+  getCookies();
   resetClock();
   redrawTime();
-  getCookies();
   setInterval(()=>{
     if(timerOn){
       if(timeValue == 1){
@@ -363,6 +360,8 @@ function writeCookies(){
       setCookie('button'+i,'');
     }
   }
+  setCookie('time',document.getElementById('clockTime').value);
+  setCookie('chance',document.getElementById('soundProb').value);
 }
 function setCookie(cname, cvalue) {
   var d = new Date();
@@ -395,4 +394,6 @@ function getCookies(){
       pairs[i].innerText = `Paired to ${v}`;
     }
   }
+  document.getElementById('clockTime').value = getCookie('time') || 10;
+  document.getElementById('soundProb').value = getCookie('chance') || 0;
 }
