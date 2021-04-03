@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body onload='onload()'onresize="resize()">
+    <div class='color'>
+      <img class='timebk' src="timebk.jpg"/>
+      <canvas class='timebkCanvas' id="timeDisplay" width="260" height="140"></canvas>
+      
+      <img class='scorebk left' src="scorebk.jpg"/>
+      <canvas class='scorebkCanvas leftCanvas' id="awayDisplay" width="260" height="140"></canvas>
+      
+      <img class='scorebk right'src="scorebk.jpg"/>
+      <canvas class='scorebkCanvas rightCanvas' id="homeDisplay" width="260" height="140"></canvas>  
+      
+      <img class='team teamleft'src="away.jpg"/>
+      <img class='team teamright'src="home.jpg"/>
+      
+      <img onclick='showSettings()'class='settingsButton'src="settings.png"/>
+      
+      <h1 class='credit'>© Mark Skinner, Joseph Conrad</h1>
+      <script type="text/javascript" src="segment-display.js"></script>
+      <script src="main.js" charset="utf-8"></script>
+      <audio id='buzzer' src='buzzer.mp3'/>
+    </div>
+    <div id='settings' class='overlay'>
+      <div class='settingsDiv'>
+        <button onclick="clickPortCon()"class='connectToUsb'>Connect to USB device</button>
+        <p class='pairText'>Increment Away by 1</p><button class='pairButton'>Pair</button><button class='testButton'>Test</button><br>
+        <p class='pairText'>Increment Away by 2</p><button class='pairButton'>Pair</button><button class='testButton'>Test</button><br>
+        <p class='pairText'>Increment Away by 3</p><button class='pairButton'>Pair</button><button class='testButton'>Test</button><br>
+        <p class='pairText'>Reset Away to 0</p><button class='pairButton'>Pair</button><button class='testButton'>Test</button><br><hr>
+        <p class='pairText'>Increment Home by 1</p><button class='pairButton'>Pair</button><button class='testButton'>Test</button><br>
+        <p class='pairText'>Increment Home by 2</p><button class='pairButton'>Pair</button><button class='testButton'>Test</button><br>
+        <p class='pairText'>Increment Home by 3</p><button class='pairButton'>Pair</button><button class='testButton'>Test</button><br>
+        <p class='pairText'>Reset Home to 0</p><button class='pairButton'>Pair</button><button class='testButton'>Test</button><br><hr>
+        <p class='pairText'>Clock Time (minutes)</p><input onchange="resetClock()"id='clockTime'type='number' min='1' max='99' value='10'class='inputBox'></input><br>
+        <p class='pairText'>Start Clock</p><button class='pairButton'>Pair</button><button class='testButton'>Test</button><br>
+        <p class='pairText'>Pause Clock</p><button class='pairButton'>Pair</button><button class='testButton'>Test</button><br>
+        <p class='pairText'>Reset clock</p><button class='pairButton'>Pair</button><button class='testButton'>Test</button><br><hr>
+        <p class='pairText'>Buzzer</p><button class='pairButton'>Pair</button><button class='testButton'>Test</button><br>
+        <p class='pairText'>Victory Sound</p><button class='pairButton'>Pair</button><button class='testButton'>Test</button><br>
+        <p class='pairText'>Random Sound</p><button class='pairButton'>Pair</button><button class='testButton'>Test</button><br>
+      </div>
+      <button class='okButton' onclick='hideSettings()'>OK</button>
+    </div>
+  </body>
+</html>

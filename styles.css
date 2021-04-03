@@ -1,0 +1,143 @@
+@font-face {
+  font-family: '7seg';
+  src: url('7seg.ttf'); /* IE9 Compat Modes */
+}
+.number{
+  font-family: '7seg',sans-serif;
+  font-size: 30px;
+  margin: 0px;
+}
+body{
+  background: url("darksteel.jpg");
+  margin: 0px;
+  padding: 0px;
+}
+.timebk{
+  width:49%;
+  height:33%;
+  position: fixed;
+  left:26%;
+  top:3%;
+}
+.timebkCanvas{
+  position: fixed;
+  left:29%;
+  top:7%;
+}
+.scorebk{
+  width:35%;
+  height:47%;
+  position: fixed;
+  bottom: 13%;
+}
+.scorebkCanvas{
+  position: fixed;
+  bottom: 18%;
+}
+.left{
+  left:6%;
+}
+.right{
+  right:6%;
+}
+.team{
+  position: fixed;
+  bottom: 5%;
+  width: 25%;
+  height:6%;
+}
+.teamleft{
+  left:11%;
+}
+.teamright{
+  right:11%;
+}
+.leftCanvas{
+  left:10%;
+}
+.rightCanvas{
+  right:10%;
+}
+.color{
+  position: fixed;
+  left:0px;
+  top:0px;
+  width:100%;
+  height:100%;
+  background: radial-gradient(#555555FF, #00000000);
+}
+.settingsButton{
+  position: fixed;
+  width:5%;
+  left:47.3%;
+  top:57%;
+}
+.settingsButton:hover{
+  filter:brightness(130%);
+  cursor:pointer;
+}
+.credit{
+  position: fixed;
+  bottom:1px;
+  left:5px;
+  margin:0px;
+  font-size:15px;
+}
+.overlay{
+  position: fixed;
+  left:0px;
+  top:0px;
+  background-color:rgba(0,0,0,0.8);
+  /* z-index:35; */
+  width:100%;
+  height:100%;
+}
+.settingsDiv{
+  position: fixed;
+  width:90%;
+  height:85%;
+  background: #fff;
+  left: 5%;
+  top: 5%;
+  overflow-y: auto;
+  overflow-x:hidden;
+}
+.pairButton,.testButton{
+  font-size:22px;
+  cursor:pointer;
+  margin-right:5px;
+}
+.pairText{
+  display: inline-block;
+  margin:10px;
+  font-size:30px;
+}
+.inputBox{
+  width:50px;
+  height:20px;
+  position: relative;
+  top:-4px;
+  font-size:20px;
+}
+.connectToUsb{
+  width:80%;
+  font-size:20px;
+  left:10%;
+  top:10px;
+  margin-bottom:30px;
+  position: relative;
+  cursor:pointer;
+  background-color:orange;
+}
+.okButton{
+  position: fixed;
+  right:10%;
+  width:90%;
+  left:5%;
+  bottom:5%;
+  height:4%;
+  font-size:20px;
+  font-weight: bold;
+  cursor:pointer;
+  background-color: green;
+}
