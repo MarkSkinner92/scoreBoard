@@ -201,9 +201,17 @@ function sound(i){
 function clickPortCon(){
   openPort();
 }
-function openPort(){
-  navigator.serial.requestPort()
-  .then((ports) => {
-    // Initialize the list of available ports with `ports` on page load.
-  });
+async function openPort(){
+  var port = navigator.serial.requestPort();
+  await port.open({ baudRate: 9600 });
+  const reader = port.readable.getReader();
+  // Listen to data coming from the serial device.
+  while (true) {
+    const { value, done } = await reader.read();
+    if (done) {
+      reader.releaseLock();
+      break;
+    }
+    console.log(value);
+  }
 }
