@@ -144,7 +144,8 @@ function handleOpperation(i){
       sound(1);
       break;
     case 13:
-      sound(parseInt(Math.random(0,4)));
+    console.log('working');
+      sound(parseInt(Math.random()*8+1));
       break;
   }
 }
@@ -201,8 +202,34 @@ function redrawTime(){
 }
 function sound(i){
   console.log('playing sound',i);
-  if(i == 0){
-    document.getElementById('buzzer').play();
+  switch(i){
+    case 0:
+      document.getElementById('buzzer').play();
+      break;
+    case 1:
+      document.getElementById('swish').play();
+      break;
+    case 2:
+      document.getElementById('yeet').play();
+      break;
+    case 3:
+      document.getElementById('run').play();
+      break;
+    case 4:
+      document.getElementById('wide').play();
+      break;
+    case 5:
+      document.getElementById('wow').play();
+      break;
+    case 6:
+      document.getElementById('bruh').play();
+      break;
+    case 7:
+      document.getElementById('airhorn').play();
+      break;
+    case 8:
+      document.getElementById('gotem').play();
+      break;
   }
 }
 
