@@ -84,6 +84,7 @@ body{
   font-size:15px;
 }
 .overlay{
+  display: none;
   position: fixed;
   left:0px;
   top:0px;

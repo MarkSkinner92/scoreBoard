@@ -1,5 +1,7 @@
 //7 SEG CREDIT http://www.3quarks.com/en/SegmentDisplay/#sourceCode
 
+var settingsOpen = false;
+
 var timeDisplay = new SegmentDisplay("timeDisplay");
 var homeDisplay = new SegmentDisplay("homeDisplay");
 var awayDisplay = new SegmentDisplay("awayDisplay");
@@ -65,9 +67,11 @@ homeDisplay.setValue('00');
 
 function hideSettings(){
   document.getElementById('settings').style.display = 'none';
+  settingsOpen=false;
 }
 function showSettings(){
   document.getElementById('settings').style.display = 'unset';
+  settingsOpen=true;
 }
 
 var awayScore = 0;
@@ -76,6 +80,9 @@ var timeValue = 600; //sec
 var timerOn = false;
 var latestSerial = '';
 function onload(){
+  resize();
+  redrawTime();
+  redrawScores();
   let testers = document.getElementsByClassName('testButton');
   let pairs = document.getElementsByClassName('pairButton');
   for(let i = 0; i < testers.length; i++){
@@ -84,7 +91,7 @@ function onload(){
       handleOpperation(i);
     });
     pair.addEventListener('click',e => {
-      console.log(pair.id);
+      pairButton(pair);
     });
   }
   resetClock();
@@ -202,6 +209,20 @@ function sound(i){
 function clickPortCon(){
   openPort();
 }
+
+function pairButton(button){
+  console.log(button,button.key);
+  if(button.getAttribute('data-state') == 1 || button.getAttribute('data-state') == 3){
+    button.innerText = 'Pair';
+    button.setAttribute('data-key',undefined);
+    button.setAttribute('data-state',0);
+  }
+  else{
+    button.innerText = 'Waiting for signal...';
+    button.setAttribute('data-state',1);
+  }
+}
+
 async function openPort(){
   var que = [];
   var port = await navigator.serial.requestPort();
@@ -219,10 +240,30 @@ async function openPort(){
         let ascii = new Uint8Array(que);
         latestSerial = btoa(String.fromCharCode.apply(null, ascii));
         console.log(latestSerial);
+        gotSerial(latestSerial);
         que=[];
       }else{
         que.push(value[i]);
       }
+    }
+  }
+}
+function gotSerial(key){
+  let pairs = document.getElementsByClassName('pairButton');
+
+  for(let i = 0; i < pairs.length; i++){
+    pair = pairs[i];
+
+    if(!settingsOpen && pair.getAttribute('data-state') == 3){
+      if(pair.getAttribute('data-key') == key){
+        handleOpperation(i);
+      }
+    }
+
+    if(pair.getAttribute('data-state') == 1){
+      pair.innerText = `Paired to ${key}`;
+      pair.setAttribute('data-state',3);
+      pair.setAttribute('data-key',key);
     }
   }
 }
