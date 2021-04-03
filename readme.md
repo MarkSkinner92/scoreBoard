@@ -1,4 +1,4 @@
-##Instructions
+## Instructions
 1. Go to chrome://flags and enable "Experimental Web Platform Features"
 2. Open [markskinner92.github.io/scoreBoard](markskinner92.github.io/scoreBoard) with Chrome 80 or later
 3. Click the gear icon in the middle of the screen.
