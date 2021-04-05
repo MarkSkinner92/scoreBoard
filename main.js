@@ -70,6 +70,7 @@ function hideSettings(){
 function showSettings(){
   document.getElementById('settings').style.display = 'unset';
   settingsOpen=true;
+  openFullscreen();
 }
 
 var awayScore = 0;
@@ -396,4 +397,15 @@ function getCookies(){
   }
   document.getElementById('clockTime').value = getCookie('time') || 10;
   document.getElementById('soundProb').value = getCookie('chance') || 0;
+}
+/* View in fullscreen */
+function openFullscreen() {
+  elem = document.documentElement;
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.webkitRequestFullscreen) { /* Safari */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE11 */
+    elem.msRequestFullscreen();
+  }
 }
